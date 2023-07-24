@@ -13,4 +13,31 @@ describe('Skills',()=>{
         const listItemelements=screen.getAllByRole('listitem')
         expect(listItemelements).toHaveLength(skills.length)
     })
+    test('renders login button',()=>{
+        render(<Skills skills={skills}/>);
+        const loginButton=screen.getByRole('button',{
+            name:"Login",
+        });
+        expect(loginButton).toBeInTheDocument();
+
+
+    })
+    test("start lerning button is not rendered",()=>{
+        render(<Skills skills={skills}/>);
+        const StartLearningButton=screen.queryByRole('button',{
+            name:'StartLearning',
+
+        })
+        expect(StartLearningButton).not.toBeInTheDocument();
+
+    })
+    test('start learnig button eventually displayed',async()=>{
+        render(<Skills skills={skills}/>)
+        const StartLearningButton=await screen.findByRole('button',{
+            name:'StartLearning'
+        },{
+            timeout:2000,
+        })
+        expect(StartLearningButton).toBeInTheDocument();
+    })
 })
